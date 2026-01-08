@@ -3,94 +3,128 @@ const QUIZ_CONTENT = {
         'House of Cards': {
             emoji: '🃏',
             name: 'House of Cards',
-            description: 'Saddle Point. Fundamentally fragile; stable in only one direction. One wrong move leads to total divergence.',
+            description: 'A fragile balance. Everything looks perfect from the outside, but the foundation is delicate.',
             subArchetypes: {
                 'AnchorKite': {
                     name: 'The Anchor & The Kite',
                     emoji: '🪁',
-                    relAdvice: 'Your relationship is a delicate balance of asymmetry. One partner acts as the ground while the other drifts. High sensitivity means that while you can reach great heights, you lack a robust internal "return" mechanism if the anchor slips.'
+                    relAdvice: 'Your connection has a "grounded one" and a "free spirit." It works beautifully as long as the Anchor holds steady, but if the rope snaps, the Kite can drift away. You balance each other, but the stability is uneven.'
                 },
                 'ColdWar': {
                     name: 'The Cold War',
                     emoji: '🧊',
-                    relAdvice: 'Both of you are individually stable, but your cross-reactions are intensely defensive. You individually have peace, but together you create a "fragile" state where reactive feedback loops overpower your logic.'
+                    relAdvice: 'You are both strong, independent people, but sometimes your defenses clash. You might find yourselves walking on eggshells, trying not to trigger a reaction. The peace is real, but it requires constant effort to maintain.'
                 },
                 'FeedbackLoop': {
                     name: 'The Feedback Loop',
                     emoji: '♾️',
-                    relAdvice: 'You are both emotionally volatile, balanced on a razor\'s edge. You currently rely on reactive pressure to maintain structure. Any external shock could lead to total divergence without a shared grounding practice.'
+                    relAdvice: 'This is a high-passion, high-energy connection! You both feel things deeply and feed off each other\'s moods. It\'s exciting, but without a pause button, small sparks can turn into big flames quickly.'
                 }
             }
         },
         'The Anchor': {
             emoji: '⚓',
             name: 'The Anchor',
-            description: 'Stable Node. High resilience; the couple naturally pulls back to a calm, steady baseline.',
-            relAdvice: 'You share a rare and beautiful stability. The system naturally dampens any shocks, allowing you to focus on building a future without the fear of sudden collapse.'
+            description: 'A secure, steady harbor. You naturally return to a calm baseline after any storm.',
+            relAdvice: 'You share a rare and beautiful stability. Your relationship naturally "dampens" stress, allowing you to relax and build a future without worrying about sudden shifts. It\'s a safe place to land.'
         },
         'The Mature Rollercoaster': {
             emoji: '🎢',
             name: 'The Mature Rollercoaster',
-            description: 'Stable Spiral. Whimsical cycles that eventually settle into a steady rhythm.',
-            relAdvice: 'You are in a dance of dampening oscillations. The highs and lows are part of your growth process, and each cycle brings you closer to a centered, quiet understanding.'
+            description: 'A rhythmic journey. Ups and downs are part of your growth, but they always lead back home.',
+            relAdvice: 'Your relationship moves in cycles, like a dance. The highs are fun and the lows are manageable. Over time, you are learning to ride these waves together, making the ride smoother and deeper with every loop.'
         },
         'The Supernova': {
             emoji: '💥',
             name: 'The Supernova',
-            description: 'Unstable Node. Rapid linear escalation or collapse. Leads to intense burnout.',
-            relAdvice: 'The intensity here is unsustainable without external intervention or deep self-regulation. You are accelerating toward an edge, driven by a lack of internal emotional brakes.'
+            description: 'A shooting star. Intense, fast, and incredibly bright, but burning fuel quickly.',
+            relAdvice: 'The intensity here is off the charts! You are accelerating together, which feels amazing, but be careful of burnout. Make sure to build in some "cooldown" periods so this beautiful energy can last.'
         },
         'The Toxic Vortex': {
             emoji: '🌀',
-            name: 'The Toxic Vortex',
-            description: 'Unstable Spiral. Hot/cold cycles that become increasingly violent and destructive over time.',
-            relAdvice: 'This feedback loop is amplifying itself. Each conflict carries more energy than the last. Breaking this cycle requires a radical shift in how you both regulate your own internal states.'
+            name: 'The Vortex',
+            description: 'A stormy spiral. Conflicts tend to linger and loop, becoming harder to resolve over time.',
+            relAdvice: 'It feels like you get stuck in loops where one reaction triggers another. It\'s not about blame; it\'s about the pattern. breaking this cycle requires one of you to gently "step out" of the dance and change the rhythm.'
         }
     },
 
     // Mapping: personalInfo[RelType][PersonalityType]
     personalDynamics: {
         'The Anchor': {
-            'The Altruist': "In this stable harbor, you act as the lighthouse. Your validation isn't fighting a fire; it's enriching a peaceful home. You provide the safety that allows the system to remain centered.",
-            'The Critic': "Your critical eye helps keep this relationship honest and grounded. Because the relationship is stable, your critiques are heard as constructive rather than attacking.",
-            'The Firestarter': "Your passion provides the 'warmth' in the anchor's security. You prevent the relationship from becoming stagnant by constantly bringing new energy into the safe zone.",
-            'The Instigator': "You are the healthy catalyst here. You challenge the status quo to ensure the stability remains dynamic. Your volatility is balanced by the partner's strength."
+            'The Altruist': "You are the lighthouse in this harbor. Your warmth makes the safety feel like home, not just shelter.",
+            'The Critic': "You are the anchor's chain. You keep things honest and realistic, ensuring the stability doesn't become complacency.",
+            'The Firestarter': "You bring the warmth! You make sure this safe harbor never gets boring by keeping the hearth fire burning.",
+            'The Instigator': "You keep things moving. You ensure that 'stable' doesn't mean 'stuck,' gently pushing for growth within the safety."
         },
         'The Mature Rollercoaster': {
-            'The Altruist': "You are the safety harness on this ride. Your validation ensures that even at the peak of a cycle, the landing is soft and the return to baseline is inevitable.",
-            'The Critic': "You are the 'brakes' on the spiral. By reacting to the deviations, you help pull the system back to the center, preventing the cycles from growing out of control.",
-            'The Firestarter': "You provide the momentum. You love the 'highs' of the cycles and your energy keeps the movement alive, though you trust the partner to help find the center.",
-            'The Instigator': "You often trigger the next 'turn' in the dance. While this creates motion, your challenge is to ensure the turns are purposeful and lead back toward the shared quiet.",
-            'Mutual': "Even though you both share this archetype, you play different roles in the cycle. One is often the 'launcher' while the other is the 'catcher,' creating a rhythmic emotional heartbeat."
+            'The Altruist': "You make the ride safe. When the rollercoaster dips, your support ensures everyone feels secure.",
+            'The Critic': "You are the brakes. You help slow things down when the excitement gets a bit too fast, keeping the ride enjoyable.",
+            'The Firestarter': "You are the thrill! You love the highs and bring the excitement that makes this journey memorable.",
+            'The Instigator': "You lead the dance. You aren't afraid of the turns, helping the relationship navigate the curves with style.",
+            'Mutual': "You trade roles perfectly. Sometimes one leads, sometimes the other, creating a dynamic and living rhythm."
         },
         'The Toxic Vortex': {
-            'The Altruist': "In this spiral, your validation accidentally fuels the fire. You try to soothe the chaos, but without internal boundaries, your warmth is just more energy for the vortex.",
-            'The Critic': "Your reactivity acts like an accelerant. Every time you 'check' the partner, the system spins faster. You are attempting to fix a problem that is actually being driven by your own reaction.",
-            'The Firestarter': "Your passion turns into a storm here. Without internal brakes, your desire for intensity pushes the spiral outward faster than the relationship can handle.",
-            'The Instigator': "You are the engine of the vortex. Your volatile-reactive nature finds perfect resonance in the chaos, driving the system toward an edge of total emotional exhaustion.",
-            'Mutual': "A dangerous symmetry. You are mirroring each other's volatility, creating a resonance effect where the smallest disagreement scale into a massive, self-amplifying storm."
+            'The Altruist': "Your kindness is precious, but here it might be getting lost in the storm. Remember to protect your own peace too.",
+            'The Critic': "You are trying to fix things, but sometimes 'fixing' feels like 'fighting' in this weather. Try stepping back.",
+            'The Firestarter': "Your passion is powerful, but in this wind, it spreads fast. finding a calm center is your superpower here.",
+            'The Instigator': "You react quickly, which is natural, but slowing down your response time can act as a shield against the chaos.",
+            'Mutual': "It's like two storms meeting. You both feel deeply, which amplifies everything. Finding a shared 'calm word' can help pause the spiral."
         },
         'The Supernova': {
-            'The Altruist': "You are trying to catch a falling star. Your kindness is being consumed by the rapid, linear divergence of the system. You are stabilizing while the system is incinerating.",
-            'The Critic': "Your attempts to regulate the partner are being overwhelmed by the sheer velocity of the escalation. You are shouting into a hurricane of emotional change.",
-            'The Firestarter': "You are the fuel. Your lack of internal regulation and high validation creates a 'runaway' effect. You are building a tower that is too heavy for its own foundation.",
-            'The Instigator': "You are the spark. You thrive on the rapid escalation until the system hits the point of no return. You are driving the divergence with every reaction.",
-            'Mutual': "Maximum acceleration. You are both running toward the horizon at full speed. Without an external anchor, this intensity will inevitably lead to a total burnout."
+            'The Altruist': "You are trying to hold on tight. Your support is the gravity trying to keep this shooting star on course.",
+            'The Critic': "You see the map and know the speed is risky. Your challenge is getting heard above the roar of the engines.",
+            'The Firestarter': "You are the rocket fuel! Your energy drives this forward, just remember to check the gauge occasionally.",
+            'The Instigator': "You push the button for 'go.' You thrive on the acceleration, driving the relationship toward new horizons fast.",
+            'Mutual': "Full speed ahead! You are both running toward the future. Just make sure you're holding hands so you arrive together."
         },
         'House of Cards': {
-            'The Altruist': "You are the careful hand trying to keep the cards from falling. You provide the 'soft' validation that hides the underlying fragility and asymmetric pressure.",
-            'The Critic': "You see the weakness in the individual cards. Your core challenge is ensuring your 'corrections' don't knock the whole structure over in an attempt to straighten it.",
-            'The Firestarter': "Your energy is a risk here. Every burst of passion tests the structural integrity. You are a candle burning inside a paper house—beautiful but dangerous.",
-            'The Instigator': "You are the 'joker' in the pack. Your unpredictability is what makes this house of cards both exciting and terrifying. You test the limits of the structure daily.",
-            'Mutual': "A stalemate of fragility. You are both holding your breath, hoping the other won't move too fast. The relationship lacks a robust base because you are both reactive."
+            'The Altruist': "You are holding the pieces together. Your gentleness protects the delicate balance of this beautiful structure.",
+            'The Critic': "You see where the glue is thin. Your insight is valuable, just be gentle when pointing out the cracks.",
+            'The Firestarter': "You are a spark in a paper house. Your light is beautiful, just be mindful of how much heat you bring.",
+            'The Instigator': "You like to test the stability. It keeps things exciting, reminding everyone that life is a balancing act.",
+            'Mutual': "A delicate dance. You are both moving carefully, which creates a precious, if fragile, beauty. Trusting each other is the key."
         }
     },
 
     gapAnalysis: {
-        stabilityGap: "Warning: There is a significant <strong>Sustainability Gap</strong>. {stable} is carrying the emotional load (the 'Heat Sink'), while {volatile} is potentially free-riding on that stability. This is exhausting for the regulator.",
-        reactionGap: "Warning: Your <strong>Validation Gaps</strong> are mismatched. One of you is validating while the other is reacting. This creates a 'pursuer-distancer' dynamic that makes the center unstable.",
-        mutualVolatility: "Alert: <strong>Mutual Volatility Detected.</strong> Both of you lack internal emotional brakes. You are relying entirely on the other's mood to regulate your own. This is high-risk for a structural collapse.",
-        sustainabilityScore: "Sustainability Note: Your 'k' factor (Trace) is currently {trace}. For long-term peace, this must remain negative. If it turns positive, the relationship is consuming its own future."
+        stabilityGap: "💡 Balance Check: One of you is carrying more of the emotional load (the 'Rock'), while the other is free to be more expressive. Make sure the Rock gets a break to rest too!",
+        reactionGap: "💡 Style Check: You have different love languages here. One validates while the other reacts. Only one person 'chasing' the mood can be tiring, so try to meet in the middle.",
+        mutualVolatility: "🔥 Passion Alert: You are both high-energy! This is exciting but can be exhausting. Relying on each other to calm down is tricky when you're both up; try finding a solo 'cool down' ritual.",
+        sustainabilityScore: "🌱 Growth Note: Your 'Relationship Energy' is currently {trace}. For a long-lasting peace, we want this to be negative (grounded). Positive means the energy is expanding—exciting, but requires care!"
+    },
+
+    baselineAnalysis: {
+        happy: "🌟 Projected Future: Blissful Stability. Your baseline parameters suggest that when the dust settles, you naturally drift toward a state of high mutual affection.",
+        unhappy: "🌧️ Projected Future: Stable Discontent. While the relationship is 'stable' (predictable), the math suggests you might settle into a routine that feels a bit cold. Focus on raising your daily baseline warmth through small, consistent acts of kindness.",
+        imbalanced: "⚖️ Projected Future: Asymmetric Affection. One of you is projected to be much happier than the other in the long run. The happier partner needs to ensure they aren't taking the other for granted."
+    },
+
+    // Pairwise Compatibility Matrix
+    compatibilityMatrix: {
+        'The Altruist': {
+            'The Altruist': { destiny: 'The Anchor', dynamics: 'Stable Node. High warmth, zero friction. You gravitate toward the baseline with minimal oscillation.' },
+            'The Critic': { destiny: 'Mature Rollercoaster', dynamics: 'Balanced push-pull cycles. One pursues, one regulates. You experience cycles of "getting closer" and "needing space," but these damp down over time.' },
+            'The Firestarter': { destiny: 'Supernova Risk', dynamics: 'Altruist must be highly stable to prevent burnout. High passion; requires strong boundaries.' },
+            'The Instigator': { destiny: 'The Survival Spiral', dynamics: 'Altruist acts as a "Heat Sink" for chaos. Only survives if Altruist is a saint.' }
+        },
+        'The Critic': {
+            'The Altruist': { destiny: 'Mature Rollercoaster', dynamics: 'Balanced push-pull cycles. One pursues, one regulates. Experience cycles of closeness and space that dampen over time.' },
+            'The Critic': { destiny: 'The Icebox', dynamics: 'Stable but potentially cold. You are both "brakes" with no gas. You need to manually boost your baseline warmth through shared activities and planned dates.' },
+            'The Firestarter': { destiny: 'Controlled Burn', dynamics: 'Critic prevents Firestarter from exploding. High friction but structurally grounded.' },
+            'The Instigator': { destiny: 'The Friction Trap', dynamics: 'Constant reactive dampening. High conflict potential.' }
+        },
+        'The Firestarter': {
+            'The Altruist': { destiny: 'Supernova Risk', dynamics: 'High passion; requires strong boundaries. Altruist must provide the stability.' },
+            'The Critic': { destiny: 'Controlled Burn', dynamics: 'Critic prevents Firestarter from exploding. High friction but structurally grounded.' },
+            'The Firestarter': { destiny: 'The Supernova', dynamics: 'Rapid escalation and inevitable burnout. You lack the "Damping" required to survive a major shock.' },
+            'The Instigator': { destiny: 'Toxic Vortex', dynamics: 'Volatility meets reactivity. High danger. Increasing cycles of destructive behavior.' }
+        },
+        'The Instigator': {
+            'The Altruist': { destiny: 'The Survival Spiral', dynamics: 'Altruist acts as a "Heat Sink" for chaos. Only survives if Altruist is largely selfless.' },
+            'The Critic': { destiny: 'The Friction Trap', dynamics: 'High conflict and resentment. Constant reactive dampening.' },
+            'The Firestarter': { destiny: 'Toxic Vortex', dynamics: 'Volatility meets reactivity. High danger. Increasing cycles of destructive behavior.' },
+            'The Instigator': { destiny: 'Total Collapse', dynamics: 'Unstable and divergent (House of Cards). One small disagreement sends sentiments flying apart.' }
+        }
     },
 
     individualArchetypes: {

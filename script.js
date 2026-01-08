@@ -1,73 +1,45 @@
 const questions = [
     {
         id: 'q1',
-        title: 'Your Internal Regulation (a)',
+        title: 'Your Internal Regulation',
         desc: 'When you are upset, do you tend to "feed your own fire" (spiral), or do you have a strong internal "governor" that calms you down?',
-        neg: 'Volatile',
-        pos: 'Stable'
+        neg: 'Spirals',
+        pos: 'Calms Down'
     },
     {
         id: 'q2',
-        title: 'Your Partner’s Regulation (d)',
-        desc: 'Does your partner have a solid internal "emotional brake," or do they tend to amplify their own negative moods?',
-        neg: 'Volatile',
-        pos: 'Stable'
+        title: 'Your Partner’s Regulation',
+        desc: 'Does your partner tend to amplify their own negative moods, or do they have a solid internal "emotional brake"?',
+        neg: 'Amplifies',
+        pos: 'Brakes'
     },
     {
         id: 'q3',
-        title: 'Your Reaction to Them (b)',
-        desc: 'When your partner is happy or affectionate, do you feel naturally uplifted (Validation), or do you feel a need to pull back or dampen the mood (Reactance)?',
-        neg: 'Reactive',
-        pos: 'Validating'
+        title: 'Your Reaction to Them',
+        desc: 'When your partner is affectionate, do you feel a need to pull back (dampen), or do you feel naturally uplifted (validate)?',
+        neg: 'Pulls Back',
+        pos: 'Validates'
     },
     {
         id: 'q4',
-        title: 'Their Reaction to You (c)',
-        desc: 'When you are in a great mood, does your partner celebrate and mirror that energy, or do they tend to "rain on your parade" to balance the room?',
-        neg: 'Reactive',
-        pos: 'Validating'
+        title: 'Their Reaction to You',
+        desc: 'When you are in a great mood, does your partner tend to "rain on your parade," or do they celebrate and mirror that energy?',
+        neg: 'Dampens',
+        pos: 'Celebrates'
     },
     {
         id: 'q5',
-        title: 'Your Baseline Sentiment (b1)',
+        title: 'Your Baseline Sentiment',
         desc: 'If you haven\'t spoken to your partner yet today, what is your "resting temperature" toward them? Are you starting the day with warmth or resentment?',
         neg: 'Stress',
         pos: 'Security'
     },
     {
         id: 'q6',
-        title: 'Their Baseline Sentiment (b2)',
+        title: 'Their Baseline Sentiment',
         desc: 'What is your partner’s "default" state of affection toward you, regardless of the day\'s events?',
         neg: 'Insecurity',
         pos: 'Security'
-    },
-    {
-        id: 'q7',
-        title: 'The Recovery Factor',
-        desc: 'After a fight, does the relationship eventually "gravitate" back to a calm center, or do the echoes of the argument linger and drift toward a new conflict?',
-        neg: 'Drifts',
-        pos: 'Gravitates'
-    },
-    {
-        id: 'q8',
-        title: 'The Oscillation Trend',
-        desc: 'Looking at your relationship cycles over the last few months, are the "highs and lows" getting smaller and more manageable, or larger and more extreme?',
-        neg: 'Getting Larger',
-        pos: 'Getting Smaller'
-    },
-    {
-        id: 'q9',
-        title: 'The Influence Balance',
-        desc: 'Who "drives" the mood in the house? Is the emotional influence equal, or is one person primarily "driving" while the other is mostly "reacting"?',
-        neg: 'Driving',
-        pos: 'Equal'
-    },
-    {
-        id: 'q10',
-        title: 'The House of Cards Test',
-        desc: 'Do you feel like the relationship is robust enough to handle a major life "shock," or does it feel like one wrong word could lead to total divergence?',
-        neg: 'Fragile',
-        pos: 'Robust'
     }
 ];
 
@@ -129,7 +101,7 @@ restartBtn.addEventListener('click', () => {
 
 function showQuestion(index) {
     const q = questions[index];
-    questionNumber.textContent = `Question ${index + 1} of 10`;
+    questionNumber.textContent = `Question ${index + 1} of ${questions.length}`;
     questionTitle.textContent = q.title;
     questionDesc.textContent = q.desc;
     labelNeg.textContent = `-5 (${q.neg})`;
@@ -225,11 +197,40 @@ function calculateResults() {
     let sustain = QUIZ_CONTENT.gapAnalysis.sustainabilityScore.replace('{trace}', tau.toFixed(1));
     if (tau > 0) sustain = `⚠️ **Critical Sustainability Note:** ${sustain} (The system is EXPANDING and currently UNSTABLE).`;
 
+    // Baseline Fixed Point Analysis (Q5=b1, Q6=b2)
+    const b1 = answers['q5'];
+    const b2 = answers['q6'];
+    let baselineMsg = '';
+    if (delta !== 0) {
+        const rStar = (b * (-b2) - d * (-b1)) / delta;
+        const jStar = (c * (-b1) - a * (-b2)) / delta;
+
+        if (rStar > 0 && jStar > 0) {
+            baselineMsg = QUIZ_CONTENT.baselineAnalysis.happy;
+        } else if (rStar < 0 && jStar < 0) {
+            baselineMsg = QUIZ_CONTENT.baselineAnalysis.unhappy;
+        } else {
+            baselineMsg = QUIZ_CONTENT.baselineAnalysis.imbalanced;
+        }
+    }
+
+    // Matrix Lookup (Deep Dynamics)
+    // Note: The compatibilityMatrix keys are capitalized in content.js.
+    // Ensure accurate lookup.
+    const matrixEntry = QUIZ_CONTENT.compatibilityMatrix[yourKey] ? QUIZ_CONTENT.compatibilityMatrix[yourKey][partnerKey] : null;
+    let matrixDestiny = archetypeKey;
+    let matrixDynamics = relAdvice;
+
+    if (matrixEntry) {
+        matrixDestiny = matrixEntry.destiny;
+        matrixDynamics = matrixEntry.dynamics;
+    }
+
     // Synthesis
     const finalAdvice = `
         <div class="advice-block">
-            <h4>Relationship Outlook</h4>
-            <p>${relAdvice}</p>
+            <h4>Archetypal Destiny: ${matrixDestiny}</h4>
+            <p>${matrixDynamics}</p>
         </div>
         <div class="advice-block">
             <h4>Personal Dynamics</h4>
@@ -240,6 +241,7 @@ function calculateResults() {
             <h4>Sustainability Analysis</h4>
             <p>${sustain}</p>
             ${gapAlerts.map(alert => `<p>${alert}</p>`).join('')}
+            ${baselineMsg ? `<p style="margin-top:0.5rem; border-top:1px dashed rgba(0,0,0,0.1); padding-top:0.5rem;">${baselineMsg}</p>` : ''}
         </div>
         <div class="advice-block synergy">
             <h4>Strategic Synergy</h4>
@@ -250,7 +252,7 @@ function calculateResults() {
     `;
 
     // Update UI
-    document.getElementById('archetype-name').textContent = subName || archData.name;
+    document.getElementById('archetype-name').textContent = matrixDestiny || subName || archData.name;
     document.getElementById('archetype-desc').textContent = archData.description;
     document.getElementById('archetype-emoji').textContent = subEmoji || archData.emoji;
 
