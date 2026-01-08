@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relationship Destiny Engine | Strogatz Framework</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Landing Section -->
+        <section id="landing" class="screen">
+            <div class="glass-container">
+                <h1 class="glitch" data-text="Relationship Destiny">Relationship Destiny</h1>
+                <p class="subtitle">Map your relational dynamics using the Strogatz Linear ODE Framework.</p>
+                <div class="description">
+                    <p>Discover if your relationship is an <strong>Anchor</strong>, a <strong>Mature
+                            Rollercoaster</strong>, or a <strong>Toxic Vortex</strong> through 10 diagnostic parameters.
+                    </p>
+                </div>
+                <button id="start-btn" class="primary-btn">Begin Diagnostic</button>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="screen hidden">
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <div id="question-container" class="glass-container">
+                <div class="question-header">
+                    <span id="question-number">Question 1 of 10</span>
+                    <h2 id="question-title">Your Internal Regulation (a)</h2>
+                </div>
+                <p id="question-desc" class="question-desc">When you are upset, do you tend to "feed your own fire"
+                    (spiral), or do you have a strong internal "governor" that calms you down?</p>
+
+                <div class="slider-wrapper">
+                    <div class="slider-labels">
+                        <span class="label-neg">-5 (Volatile)</span>
+                        <span class="label-pos">+5 (Stable)</span>
+                    </div>
+                    <input type="range" id="quiz-slider" min="-5" max="5" step="1" value="0" class="slider">
+                    <div class="slider-value-display">
+                        Value: <span id="slider-value">0</span>
+                    </div>
+                </div>
+
+                <div class="quiz-nav">
+                    <button id="prev-btn" class="secondary-btn invisible">Previous</button>
+                    <button id="next-btn" class="primary-btn">Next</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="screen hidden">
+            <div class="glass-container large">
+                <div class="results-header">
+                    <h2 class="results-title">Your Relationship Destiny</h2>
+                </div>
+
+                <div class="main-archetype-container">
+                    <span id="archetype-emoji" class="emoji-display"></span>
+                    <div id="archetype-name" class="archetype-badge">Calculating...</div>
+                </div>
+
+                <div class="individual-archetypes">
+                    <div class="person-card">
+                        <span class="person-label">You</span>
+                        <span id="your-archetype-emoji" class="person-emoji"></span>
+                        <div id="your-archetype-name" class="person-archetype">...</div>
+                    </div>
+                    <div class="person-card">
+                        <span class="person-label">Partner</span>
+                        <span id="partner-archetype-emoji" class="person-emoji"></span>
+                        <div id="partner-archetype-name" class="person-archetype">...</div>
+                    </div>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>Dynamics Summary</h3>
+                        <p id="archetype-desc"></p>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>Math Corner</h3>
+                        <div class="math-stats">
+                            <div class="stat"><span>Trace (τ)</span> <strong id="stat-trace">0</strong></div>
+                            <div class="stat"><span>Determinant (Δ)</span> <strong id="stat-det">0</strong></div>
+                            <div class="stat"><span>Discriminant (D)</span> <strong id="stat-disc">0</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advice-section">
+                    <h3>Cute Advice ✨</h3>
+                    <p id="strategic-advice"></p>
+                </div>
+
+                <div class="quiz-nav">
+                    <button id="restart-btn" class="secondary-btn">Start Over</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
