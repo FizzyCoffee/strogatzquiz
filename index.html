@@ -22,6 +22,12 @@
 
 <body>
     <div id="app">
+        <!-- Language Switcher -->
+        <div class="lang-switcher">
+            <button id="lang-en" class="lang-btn active" onclick="switchLanguage('en')">🇺🇸 EN</button>
+            <button id="lang-jp" class="lang-btn" onclick="switchLanguage('jp')">🇯🇵 JP</button>
+        </div>
+
         <!-- Landing Section -->
         <section id="landing" class="screen">
             <div class="glass-container">
@@ -57,7 +63,7 @@
                     </div>
                     <input type="range" id="quiz-slider" min="-5" max="5" step="1" value="0" class="slider">
                     <div class="slider-value-display">
-                        Value: <span id="slider-value">0</span>
+                        <span id="slider-label-text">Value: </span><span id="slider-value">0</span>
                     </div>
                 </div>
 
@@ -102,9 +108,20 @@
                     <div class="result-card">
                         <h3>Math Corner</h3>
                         <div class="math-stats">
-                            <div class="stat"><span>Energy (τ)</span> <strong id="stat-trace">0</strong></div>
-                            <div class="stat"><span>Strength (Δ)</span> <strong id="stat-det">0</strong></div>
-                            <div class="stat"><span>Style (D)</span> <strong id="stat-disc">0</strong></div>
+                            <div class="stat">
+                                <div class="stat-header"><span>Energy (τ)</span> <strong id="stat-trace">0</strong>
+                                </div>
+                                <p id="desc-energy" class="stat-desc"></p>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-header"><span>Strength (Δ)</span> <strong id="stat-det">0</strong>
+                                </div>
+                                <p id="desc-strength" class="stat-desc"></p>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-header"><span>Style (D)</span> <strong id="stat-disc">0</strong></div>
+                                <p id="desc-style" class="stat-desc"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
