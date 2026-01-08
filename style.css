@@ -27,12 +27,73 @@ body {
     min-height: 100vh;
 }
 
-.screen {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+@media (max-width: 600px) {
+    .glass-container {
+        padding: 1.5rem;
+    }
+
+    .individual-archetypes {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .main-archetype-container .emoji-display {
+        font-size: 4rem;
+    }
+}
+
+/* Advice Styling */
+.advice-section {
+    margin-top: 2rem;
+    text-align: left;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.advice-section h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.advice-block {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    border: 2px solid #fff0f5;
+    box-shadow: 0 4px 15px rgba(255, 143, 177, 0.05);
+}
+
+.advice-block h4 {
+    margin: 0 0 0.75rem 0;
+    color: var(--accent-primary);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.advice-block p {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text-main);
+}
+
+.advice-block.alerts {
+    background: rgba(255, 143, 177, 0.05);
+    border-color: #ffe0e9;
+}
+
+.advice-block.alerts h4 {
+    color: #e67394;
+}
+
+.advice-block.synergy {
+    background: rgba(183, 156, 237, 0.05);
+    border-color: #ece3ff;
+}
+
+.advice-block.synergy h4 {
+    color: var(--accent-tertiary);
 }
 
 .hidden {

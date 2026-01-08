@@ -148,27 +148,6 @@ function showQuestion(index) {
     nextBtn.textContent = index === questions.length - 1 ? 'See Results' : 'Next';
 }
 
-const emojiMap = {
-    // Relationship Destiny
-    'The Anchor': '⚓',
-    'The Mature Rollercoaster': '🎢',
-    'The Supernova': '💥',
-    'The Toxic Vortex': '🌀',
-    'House of Cards': '🃏',
-    // Individual Archetypes
-    'The Altruist': '💖',
-    'The Critic': '🧐',
-    'The Firestarter': '🧨',
-    'The Instigator': '🧪'
-};
-
-const individualAdvice = {
-    'The Altruist': 'You bring a warm, stabilizing presence to the table, always looking to validate and support.',
-    'The Critic': 'You provide essential grounding but your reactive nature can sometimes dampen the mood.',
-    'The Firestarter': 'Your energy is infectious and passionate, though your internal volatility keeps things intense.',
-    'The Instigator': 'You are a catalyst for movement, but your combination of volatility and reactivity can create friction.'
-};
-
 function getIndividualArchetype(selfReg, crossInt) {
     if (selfReg < 0 && crossInt > 0) return 'The Altruist';
     if (selfReg < 0 && crossInt < 0) return 'The Critic';
@@ -177,6 +156,7 @@ function getIndividualArchetype(selfReg, crossInt) {
 }
 
 function calculateResults() {
+    // Math Parameters
     const a = -answers['q1'];
     const d = -answers['q2'];
     const b = answers['q3'];
@@ -186,58 +166,99 @@ function calculateResults() {
     const delta = (a * d) - (b * c);
     const disc = (tau * tau) - (4 * delta);
 
-    let archetype = '';
-    let description = '';
+    let archetypeKey = '';
     let relAdvice = '';
+    let subName = '';
+    let subEmoji = '';
 
+    // Relationship Classification
     if (delta < 0) {
-        archetype = 'House of Cards';
-        description = 'Saddle Point. Fundamentally fragile; stable in only one direction. One wrong move leads to total divergence.';
-        relAdvice = 'Your relationship is a delicate balance. High sensitivity to interaction coefficients means that while you can reach great heights, you lack a robust internal "return" mechanism.';
+        archetypeKey = 'House of Cards';
+        const arch = QUIZ_CONTENT.relationshipArchetypes[archetypeKey];
+        let subKey = '';
+        if ((a < 0 && d > 0) || (a > 0 && d < 0)) subKey = 'AnchorKite';
+        else if (a < 0 && d < 0) subKey = 'ColdWar';
+        else subKey = 'FeedbackLoop';
+
+        const sub = arch.subArchetypes[subKey];
+        subName = sub.name;
+        relAdvice = sub.relAdvice;
+        subEmoji = sub.emoji;
     } else if (tau < 0) {
-        if (disc > 0) {
-            archetype = 'The Anchor';
-            description = 'Stable Node. High resilience; the couple naturally pulls back to a calm, steady baseline.';
-            relAdvice = 'You share a rare and beautiful stability. The system naturally dampens any shocks, allowing you to focus on building a future without the fear of sudden collapse.';
-        } else {
-            archetype = 'The Mature Rollercoaster';
-            description = 'Stable Spiral. Whimsical cycles that eventually settle into a steady rhythm.';
-            relAdvice = 'You are in a dance of dampening oscillations. The highs and lows are part of your growth process, and each cycle brings you closer to a centered, quiet understanding.';
-        }
+        archetypeKey = disc > 0 ? 'The Anchor' : 'The Mature Rollercoaster';
+        relAdvice = QUIZ_CONTENT.relationshipArchetypes[archetypeKey].relAdvice;
     } else {
-        if (disc > 0) {
-            archetype = 'The Supernova';
-            description = 'Unstable Node. Rapid linear escalation or collapse. Leads to intense burnout.';
-            relAdvice = 'The intensity here is unsustainable without external intervention or deep self-regulation. You are accelerating toward an edge, driven by a lack of internal emotional brakes.';
-        } else {
-            archetype = 'The Toxic Vortex';
-            description = 'Unstable Spiral. Hot/cold cycles that become increasingly violent and destructive over time.';
-            relAdvice = 'This feedback loop is amplifying itself. Each conflict carries more energy than the last. Breaking this cycle requires a radical shift in how you both regulate your own internal states.';
-        }
+        archetypeKey = disc > 0 ? 'The Supernova' : 'The Toxic Vortex';
+        relAdvice = QUIZ_CONTENT.relationshipArchetypes[archetypeKey].relAdvice;
     }
 
-    const yourArch = getIndividualArchetype(a, b);
-    const partnerArch = getIndividualArchetype(d, c);
+    const archData = QUIZ_CONTENT.relationshipArchetypes[archetypeKey];
+    const yourKey = getIndividualArchetype(a, b);
+    const partnerKey = getIndividualArchetype(d, c);
 
-    // Dynamic advice synthesis
+    // Personal Dynamics (Combinatorial)
+    const yourDyn = QUIZ_CONTENT.personalDynamics[archetypeKey][yourKey];
+    let partnerDyn = QUIZ_CONTENT.personalDynamics[archetypeKey][partnerKey];
+
+    // Handle "Mutual" case or perspective shift for Juliet
+    if (yourKey === partnerKey && QUIZ_CONTENT.personalDynamics[archetypeKey].Mutual) {
+        partnerDyn = QUIZ_CONTENT.personalDynamics[archetypeKey].Mutual + " " + partnerDyn.toLowerCase().replace('you ', 'your partner ');
+    } else {
+        partnerDyn = partnerDyn.replace(/You /g, 'Your partner ').replace(/you /g, 'your partner ');
+    }
+
+    // Gap Analysis Logic
+    let gapAlerts = [];
+    if (Math.abs(a - d) >= 3) {
+        const stableSide = a < d ? 'You (Romeo)' : 'Your Partner (Juliet)';
+        const volatileSide = a < d ? 'Your Partner' : 'You';
+        gapAlerts.push(QUIZ_CONTENT.gapAnalysis.stabilityGap.replace('{stable}', stableSide).replace('{volatile}', volatileSide));
+    }
+    if ((b > 0 && c < 0) || (b < 0 && c > 0)) {
+        gapAlerts.push(QUIZ_CONTENT.gapAnalysis.reactionGap);
+    }
+    if (a > 0 && d > 0) {
+        gapAlerts.push(QUIZ_CONTENT.gapAnalysis.mutualVolatility);
+    }
+
+    // Sustainability Trace Check
+    let sustain = QUIZ_CONTENT.gapAnalysis.sustainabilityScore.replace('{trace}', tau.toFixed(1));
+    if (tau > 0) sustain = `⚠️ **Critical Sustainability Note:** ${sustain} (The system is EXPANDING and currently UNSTABLE).`;
+
+    // Synthesis
     const finalAdvice = `
-        <strong>Relationship Outlook:</strong> ${relAdvice}<br><br>
-        <strong>Personal Dynamics:</strong><br>
-        • As ${yourArch}, ${individualAdvice[yourArch]}<br>
-        • As ${partnerArch}, your partner ${individualAdvice[partnerArch].toLowerCase().replace('you ', 'brings ')}<br><br>
-        <strong>Strategic Synergy:</strong> ${archetype === 'The Anchor' ? 'Keep doing what you\'re doing!' : 'To stabilize the system, focus on increasing internal regulation (negative "a" and "d") to dampen the spirals.'}
+        <div class="advice-block">
+            <h4>Relationship Outlook</h4>
+            <p>${relAdvice}</p>
+        </div>
+        <div class="advice-block">
+            <h4>Personal Dynamics</h4>
+            <p><strong>You (Romeo):</strong> ${yourDyn}</p>
+            <p><strong>Partner (Juliet):</strong> ${partnerDyn}</p>
+        </div>
+        <div class="advice-block alerts">
+            <h4>Sustainability Analysis</h4>
+            <p>${sustain}</p>
+            ${gapAlerts.map(alert => `<p>${alert}</p>`).join('')}
+        </div>
+        <div class="advice-block synergy">
+            <h4>Strategic Synergy</h4>
+            <p>${archetypeKey === 'The Anchor' ?
+            'Your system is in a Global Attractor state. Focus on deepening the baseline warmth to move the equilibrium toward higher affection.' :
+            'To stabilize the system, you must shift the parameters: increase internal regulation (making a and d more stable) and reduce reactive cycles.'}</p>
+        </div>
     `;
 
-    // Update Results UI
-    document.getElementById('archetype-name').textContent = archetype;
-    document.getElementById('archetype-desc').textContent = description;
-    document.getElementById('archetype-emoji').textContent = emojiMap[archetype];
+    // Update UI
+    document.getElementById('archetype-name').textContent = subName || archData.name;
+    document.getElementById('archetype-desc').textContent = archData.description;
+    document.getElementById('archetype-emoji').textContent = subEmoji || archData.emoji;
 
-    document.getElementById('your-archetype-name').textContent = yourArch;
-    document.getElementById('your-archetype-emoji').textContent = emojiMap[yourArch];
+    document.getElementById('your-archetype-name').textContent = yourKey;
+    document.getElementById('your-archetype-emoji').textContent = QUIZ_CONTENT.individualArchetypes[yourKey].emoji;
 
-    document.getElementById('partner-archetype-name').textContent = partnerArch;
-    document.getElementById('partner-archetype-emoji').textContent = emojiMap[partnerArch];
+    document.getElementById('partner-archetype-name').textContent = partnerKey;
+    document.getElementById('partner-archetype-emoji').textContent = QUIZ_CONTENT.individualArchetypes[partnerKey].emoji;
 
     document.getElementById('stat-trace').textContent = tau.toFixed(2);
     document.getElementById('stat-det').textContent = delta.toFixed(2);
