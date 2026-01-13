@@ -303,9 +303,7 @@ function calculateResults() {
         </div>
         <div class="advice-block synergy">
             <h4>${ui.synergyTitle}</h4>
-            <p>${archetypeKey === 'The Anchor' ?
-            (currentLang === 'en' ? 'Your system is in a Global Attractor state. Focus on deepening the baseline warmth.' : 'あなたのシステムは安定的です。愛情の基盤を深めることに集中しましょう。') :
-            (currentLang === 'en' ? 'To stabilize the system, you must shift the parameters: increase internal regulation.' : 'システムを安定させるには、自己調整力を高め、反応的サイクルを減らす必要があります。')}</p>
+            <p>${tau < 0 && delta > 0 ? ui.synergy.stable : ui.synergy.unstable}</p>
         </div>
     `;
 

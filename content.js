@@ -25,6 +25,10 @@ const CONTENT = {
                 energy: "Total emotional bandwidth (Trace). Negative is calm, positive is volatile.",
                 strength: "Resilience to shocks (Determinant). Positive means you self-correct.",
                 style: "Interaction pattern (Discriminant). Spirals vs. smooth flows."
+            },
+            synergy: {
+                stable: "Your relationship naturally trends toward stability (Restoring Force). The ups and downs are just part of your unique rhythm.",
+                unstable: "Your system amplifies energy ($\tau > 0$). To stabilize, you need to reduce the 'Gain': practice **independent self-soothing**. If just one of you hits pause instead of reacting, the spiral breaks."
             }
         },
         questions: [
@@ -170,7 +174,7 @@ const CONTENT = {
             'The Altruist': {
                 'The Altruist': { destiny: 'The Anchor', dynamics: 'Stable Node. High warmth, zero friction. You gravitate toward the baseline with minimal oscillation.' },
                 'The Critic': { destiny: 'Mature Rollercoaster', dynamics: 'Balanced push-pull cycles. One pursues, one regulates. You experience cycles of "getting closer" and "needing space," but these damp down over time.' },
-                'The Firestarter': { destiny: 'Supernova Risk', dynamics: 'Altruist must be highly stable to prevent burnout. High passion; requires strong boundaries.' },
+                'The Firestarter': { destiny: 'Supernova Risk', dynamics: 'High passion but potentially unstable. If the Firestarter overwhelms the Altruist, it becomes a runaway loop. Needs strong "Cooling" rituals.' },
                 'The Instigator': { destiny: 'The Survival Spiral', dynamics: 'Altruist acts as a "Heat Sink" for chaos. Only survives if Altruist is a saint.' }
             },
             'The Critic': {
@@ -225,6 +229,10 @@ const CONTENT = {
                 energy: "感情の総エネルギー（トレース）。マイナスなら平穏、プラスなら不安定。",
                 strength: "関係の復元力（行列式）。プラスなら問題起きても自然に修復されます。",
                 style: "相互作用の型（判別式）。渦を巻くか、緩やかに流れるか。"
+            },
+            synergy: {
+                stable: "この関係には自然な「復元力」があります。多少の波があっても、最終的には必ず安定した場所に戻ることができます。",
+                unstable: "エネルギーが増幅しやすい状態（$\tau > 0$）です。安定させるには、**「個別の自己鎮静」**が鍵です。相手に反応する前に一度停止ボタンを押すことで、スパイラルを断ち切れます。"
             }
         },
         questions: [
@@ -334,23 +342,23 @@ const CONTENT = {
             'The Altruist': {
                 'The Altruist': { destiny: '穏やかな絆', dynamics: '安定ノード。高い温かさ、摩擦ゼロ。ほとんど揺れることなく、穏やかなベースラインに落ち着きます。' },
                 'The Critic': { destiny: '成熟した波', dynamics: 'バランスの取れた押し引き。一方が追い、他方が調整します。「接近」と「スペース」のサイクルを繰り返しますが、徐々に穏やかになります。' },
-                'The Firestarter': { destiny: '情熱の反動', dynamics: 'Altruistが非常に安定的でないと燃え尽きます。高い情熱ですが、強い境界線が必要です。' },
-                'The Instigator': { destiny: 'サバイバル・スパイラル', dynamics: 'Altruistがカオスの「ヒートシンク（吸熱材）」になります。Altruistが聖人でない限り生き残れません。' }
+                'The Firestarter': { destiny: '情熱の反動', dynamics: '情熱的ですが不安定になりがちです。情熱家が包容力タイプを圧倒すると、収拾がつかなくなります。「クールダウン」の習慣が不可欠です。' },
+                'The Instigator': { destiny: 'サバイバル・スパイラル', dynamics: '包容力タイプがカオスの「ヒートシンク（吸熱材）」になります。包容力タイプが聖人でない限り生き残れません。' }
             },
             'The Critic': {
                 'The Altruist': { destiny: '成熟した波', dynamics: 'バランスの取れた押し引き。一方が追い、他方が調整します。時間とともに減衰する穏やかなサイクルです。' },
                 'The Critic': { destiny: '極寒の安定', dynamics: '安定的ですが冷える可能性があります。二人とも「ブレーキ」で、アクセルがありません。デートなどで意識的に温度を上げる必要があります。' },
-                'The Firestarter': { destiny: '制御された情熱', dynamics: 'CriticがFirestarterの爆発を防ぎます。摩擦は高いですが、構造的に地に足がついています。' },
+                'The Firestarter': { destiny: '制御された情熱', dynamics: '冷静沈着タイプが情熱家タイプの爆発を防ぎます。摩擦は高いですが、構造的に地に足がついています。' },
                 'The Instigator': { destiny: '摩擦の罠', dynamics: '常に反応を抑え込む形になります。対立の可能性が高いです。' }
             },
             'The Firestarter': {
                 'The Altruist': { destiny: '情熱の反動', dynamics: '高い情熱ですが、強い境界線が必要です。Altruistが安定性を提供する必要があります。' },
-                'The Critic': { destiny: '制御された情熱', dynamics: 'CriticがFirestarterの爆発を防ぎます。摩擦は高いですが、構造的に地に足がついています。' },
+                'The Critic': { destiny: '制御された情熱', dynamics: '冷静沈着タイプが情熱家タイプの爆発を防ぎます。摩擦は高いですが、構造的に地に足がついています。' },
                 'The Firestarter': { destiny: '燃え尽きる情熱', dynamics: '急速なエスカレーションと必然的な燃え尽き。大きなショックに耐えるための「減衰力」が不足しています。' },
                 'The Instigator': { destiny: '負のスパイラル', dynamics: '揮発性と反応性の出会い。危険度高。破壊的な行動のサイクルが増幅します。' }
             },
             'The Instigator': {
-                'The Altruist': { destiny: 'サバイバル・スパイラル', dynamics: 'Altruistがカオスの「ヒートシンク」になります。Altruistが自己犠牲的でない限り困難です。' },
+                'The Altruist': { destiny: 'サバイバル・スパイラル', dynamics: '包容力タイプがカオスの「ヒートシンク」になります。包容力タイプが自己犠牲的でない限り困難です。' },
                 'The Critic': { destiny: '摩擦の罠', dynamics: '高い対立と恨み。常に反応を抑え込む形になります。' },
                 'The Firestarter': { destiny: '負のスパイラル', dynamics: '揮発性と反応性の出会い。危険度高。破壊的な行動のサイクルが増幅します。' },
                 'The Instigator': { destiny: '完全崩壊', dynamics: '不安定で発散的（脆い均衡）。些細な意見の相違で、感情がバラバラに飛び散ります。' }
