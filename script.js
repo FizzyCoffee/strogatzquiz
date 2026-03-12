@@ -213,7 +213,6 @@ function calculateResults() {
     const partnerKey = getIndividualArchetype(d, c);
 
     // Get localized individual names/emojis
-    const cleanKey = (key) => key; // Keys are same across langs
     const indArchs = C.individualArchetypes || CONTENT.en.individualArchetypes;
 
     const yourData = indArchs[yourKey] || CONTENT.en.individualArchetypes[yourKey];
