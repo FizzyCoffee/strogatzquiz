@@ -28,7 +28,7 @@ const CONTENT = {
             },
             synergy: {
                 stable: "Your relationship naturally trends toward stability (Restoring Force). The ups and downs are just part of your unique rhythm.",
-                unstable: "Your system amplifies energy ($\tau > 0$). To stabilize, you need to reduce the 'Gain': practice **independent self-soothing**. If just one of you hits pause instead of reacting, the spiral breaks."
+                unstable: "Your system amplifies energy (τ > 0). To stabilize, you need to reduce the 'Gain': practice **independent self-soothing**. If just one of you hits pause instead of reacting, the spiral breaks."
             }
         },
         questions: [
@@ -207,7 +207,7 @@ const CONTENT = {
         ui: {
             title: "二人の運命診断",
             subtitle: "すべての関係にはリズムがあります。あなたのリズムは？",
-            description: "あなたは安定した<strong>「アンカー」</strong>？情熱的な<strong>「超新星」</strong>？それとも繊細な<strong>「砂上の楼閣」</strong>？<br>10の質問で、二人の関係性を数学的に診断します。",
+            description: "あなたは安定した<strong>「アンカー」</strong>？情熱的な<strong>「超新星」</strong>？それとも繊細な<strong>「砂上の楼閣」</strong>？<br>この短い旅を通じて、二人の愛に隠された美しい数学を解き明かしましょう。",
             startBtn: "診断を始める ✨",
             nextBtn: "次へ",
             resultBtn: "結果を見る",
@@ -216,9 +216,9 @@ const CONTENT = {
             questionCount: "質問 {i} / {n}",
             resultsTitle: "二人の関係性タイプ",
             mathCorner: "数学的分析",
-            energy: "エネルギー",
-            strength: "基盤の強さ",
-            style: "スタイル",
+            energy: "エネルギー (τ)",
+            strength: "基盤の強さ (Δ)",
+            style: "スタイル (D)",
             adviceTitle: "アドバイス ✨",
             dynamicsTitle: "ダイナミクス",
             personalTitle: "個人の特性",
@@ -232,7 +232,7 @@ const CONTENT = {
             },
             synergy: {
                 stable: "この関係には自然な「復元力」があります。多少の波があっても、最終的には必ず安定した場所に戻ることができます。",
-                unstable: "エネルギーが増幅しやすい状態（$\tau > 0$）です。安定させるには、**「個別の自己鎮静」**が鍵です。相手に反応する前に一度停止ボタンを押すことで、スパイラルを断ち切れます。"
+                unstable: "エネルギーが増幅しやすい状態（τ > 0）です。安定させるには、**「個別の自己鎮静」**が鍵です。相手に反応する前に一度停止ボタンを押すことで、スパイラルを断ち切れます。"
             }
         },
         questions: [
@@ -331,7 +331,7 @@ const CONTENT = {
             stabilityGap: "💡 バランスチェック: どちらかが感情的な負担（岩）を多く背負い、もう一人が自由に振る舞っているようです。岩役の人にも休息を！",
             reactionGap: "💡 スタイルチェック: 愛の言語が異なります。一方が肯定し、他方が反応する形です。片方だけがムードを作ろうとするのは疲れるので、歩み寄りを。",
             mutualVolatility: "🔥 情熱アラート: 二人とも高エネルギーです！刺激的ですが疲れます。二人とも興奮している時に鎮めるのは難しいので、一人の「クールダウン」習慣を。",
-            sustainabilityScore: "🌱 成長メモ: 現在の「関係エネルギー」は {trace} です。長続きする平和のためには、これをマイナス（安定的）にしたいところです。"
+            sustainabilityScore: "🌱 成長メモ: 現在の「関係エネルギー」は {trace} です。長続きする平和のためには、これをマイナス（安定的）に保つことが理想的です。プラスの場合は、エネルギーが拡大していることを意味し、刺激的ですがケアが必要です！"
         },
         baselineAnalysis: {
             happy: "🌟 未来予測: 至福の安定。嵐が過ぎ去れば、自然と高い愛情レベルで安定する相性です。",
