@@ -160,7 +160,7 @@ const CONTENT = {
             }
         },
         gapAnalysis: {
-            stabilityGap: "💡 Balance Check: One of you is carrying more of the emotional load (the 'Rock'), while the other is free to be more expressive. Make sure the Rock gets a break to rest too!",
+            stabilityGap: "💡 Balance Check: {stable} is carrying more of the emotional load (the 'Rock'), while {volatile} is free to be more expressive. Make sure the Rock gets a break to rest too!",
             reactionGap: "💡 Style Check: You have different love languages here. One validates while the other reacts. Only one person 'chasing' the mood can be tiring, so try to meet in the middle.",
             mutualVolatility: "🔥 Passion Alert: You are both high-energy! This is exciting but can be exhausting. Relying on each other to calm down is tricky when you're both up; try finding a solo 'cool down' ritual.",
             sustainabilityScore: "🌱 Growth Note: Your 'Relationship Energy' is currently {trace}. For a long-lasting peace, we want this to be negative (grounded). Positive means the energy is expanding—exciting, but requires care!"
@@ -197,10 +197,10 @@ const CONTENT = {
             }
         },
         individualArchetypes: {
-            'The Altruist': { emoji: '💖' },
-            'The Critic': { emoji: '🧐' },
-            'The Firestarter': { emoji: '🧨' },
-            'The Instigator': { emoji: '🧪' }
+            'The Altruist': { emoji: '💖', name: 'The Altruist' },
+            'The Critic': { emoji: '🧐', name: 'The Critic' },
+            'The Firestarter': { emoji: '🧨', name: 'The Firestarter' },
+            'The Instigator': { emoji: '🧪', name: 'The Instigator' }
         }
     },
     jp: {
@@ -328,7 +328,7 @@ const CONTENT = {
             }
         },
         gapAnalysis: {
-            stabilityGap: "💡 バランスチェック: どちらかが感情的な負担（岩）を多く背負い、もう一人が自由に振る舞っているようです。岩役の人にも休息を！",
+            stabilityGap: "💡 バランスチェック: {stable} が感情的な負担（岩）を多く背負い、{volatile} が自由に振る舞っているようです。岩役の人にも休息を！",
             reactionGap: "💡 スタイルチェック: 愛の言語が異なります。一方が肯定し、他方が反応する形です。片方だけがムードを作ろうとするのは疲れるので、歩み寄りを。",
             mutualVolatility: "🔥 情熱アラート: 二人とも高エネルギーです！刺激的ですが疲れます。二人とも興奮している時に鎮めるのは難しいので、一人の「クールダウン」習慣を。",
             sustainabilityScore: "🌱 成長メモ: 現在の「関係エネルギー」は {trace} です。長続きする平和のためには、これをマイナス（安定的）にしたいところです。"
