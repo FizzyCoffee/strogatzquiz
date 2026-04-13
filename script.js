@@ -153,6 +153,9 @@ function showQuestion(index) {
     nextBtn.textContent = index === questions.length - 1 ? ui.resultBtn : ui.nextBtn;
 }
 
+// Classify one person's personality archetype from their two matrix coefficients.
+// selfReg < 0 means they self-damp (calming); selfReg > 0 means they self-amplify (volatile).
+// crossInt > 0 means they respond positively to their partner; < 0 means they withdraw.
 function getIndividualArchetype(selfReg, crossInt) {
     if (selfReg < 0 && crossInt > 0) return 'The Altruist';
     if (selfReg < 0 && crossInt < 0) return 'The Critic';
@@ -164,12 +167,19 @@ function calculateResults() {
     const C = getC();
     const ui = C.ui;
 
-    // Math Parameters
-    const a = -answers['q1'];
-    const d = -answers['q2'];
-    const b = answers['q3'];
-    const c = answers['q4'];
+    // Map slider answers to 2×2 system-matrix entries.
+    // The model treats the relationship as dR/dt = a·R + b·J, dJ/dt = c·R + d·J.
+    // Q1/Q2 measure self-regulation: a negative slider means volatile (positive a),
+    // so we negate so that a > 0 means the person amplifies their own emotion.
+    const a = -answers['q1'];  // Romeo's self-regulation coefficient
+    const d = -answers['q2'];  // Juliet's self-regulation coefficient
+    const b = answers['q3'];   // Romeo's response to Juliet
+    const c = answers['q4'];   // Juliet's response to Romeo
 
+    // Eigenvalue analysis of matrix [[a,b],[c,d]]:
+    //   tau   = trace     = a + d           (sum of eigenvalues; sign drives growth/decay)
+    //   delta = det       = a*d - b*c       (product of eigenvalues; sign determines fixed-point type)
+    //   disc  = discriminant = tau² - 4*delta  (positive → real eigenvalues/nodes, negative → complex/spirals)
     const tau = a + d;
     const delta = (a * d) - (b * c);
     const disc = (tau * tau) - (4 * delta);
@@ -179,8 +189,11 @@ function calculateResults() {
     let subName = '';
     let subEmoji = '';
 
-    // Relationship Classification
-    // Fallback to English if translation missing for specific keys
+    // Relationship Classification — mirrors the standard phase-plane portrait:
+    //   delta < 0              → saddle point (House of Cards): the fixed point is unstable in every direction
+    //   delta > 0, tau < 0    → stable (Anchor/Mature Rollercoaster): eigenvalues have negative real part
+    //   delta > 0, tau > 0    → unstable (Supernova/Toxic Vortex): eigenvalues have positive real part
+    //   Within stable/unstable, disc > 0 → real eigenvalues (node), disc < 0 → complex (spiral)
     const relArchs = C.relationshipArchetypes.length > 0 ? C.relationshipArchetypes : CONTENT.en.relationshipArchetypes;
 
     if (delta < 0) {
@@ -189,6 +202,10 @@ function calculateResults() {
         // Handle missing translation fallback safely
         const arch = C.relationshipArchetypes[archetypeKey] || CONTENT.en.relationshipArchetypes[archetypeKey];
 
+        // Sub-classify by the signs of the diagonal entries (individual self-regulation):
+        //   Opposite signs → one stabilizes, one destabilizes (Anchor-Kite)
+        //   Both negative  → both self-damping but coupled incompatibly (Cold War)
+        //   Both positive  → mutual amplification (Feedback Loop)
         let subKey = '';
         if ((a < 0 && d > 0) || (a > 0 && d < 0)) subKey = 'AnchorKite';
         else if (a < 0 && d < 0) subKey = 'ColdWar';
@@ -232,41 +249,48 @@ function calculateResults() {
         partnerDyn = pDyn[archetypeKey].Mutual + " (" + partnerDyn + ")";
     }
 
-    // Gap Analysis Logic
+    // Gap Analysis — surface structural imbalances between partners
     const gaps = C.gapAnalysis.stabilityGap ? C.gapAnalysis : CONTENT.en.gapAnalysis;
     let gapAlerts = [];
+
+    // Flag when one partner's self-regulation is dramatically different from the other's
     if (Math.abs(a - d) >= 3) {
         const stableSide = a < d ? 'You (Romeo)' : 'Partner (Juliet)';
         const volatileSide = a < d ? 'Partner' : 'You';
         gapAlerts.push(gaps.stabilityGap.replace('{stable}', stableSide).replace('{volatile}', volatileSide));
     }
+    // Flag when partners respond to each other in opposite directions (one opens, one withdraws)
     if ((b > 0 && c < 0) || (b < 0 && c > 0)) {
         gapAlerts.push(gaps.reactionGap);
     }
+    // Flag when both partners amplify their own emotions (both diagonal entries positive)
     if (a > 0 && d > 0) {
         gapAlerts.push(gaps.mutualVolatility);
     }
 
-    // Sustainability Trace Check
+    // Sustainability: tau > 0 means eigenvalues have positive real part → long-run divergence
     let sustain = gaps.sustainabilityScore.replace('{trace}', tau.toFixed(1));
     if (tau > 0) sustain = `⚠️ ${sustain}`;
 
-    // Baseline Fixed Point Analysis (Q5=b1, Q6=b2)
+    // Baseline Fixed-Point Analysis (Q5 = b1 = Romeo's baseline mood, Q6 = b2 = Juliet's baseline mood)
+    // Solves the driven system A·[R*,J*] = −[b1,b2] using Cramer's rule.
+    // The fixed-point signs show where the relationship settles when both baselines are present.
     const b1 = answers['q5'];
     const b2 = answers['q6'];
     let baselineMsg = '';
     const bases = C.baselineAnalysis.happy ? C.baselineAnalysis : CONTENT.en.baselineAnalysis;
 
     if (delta !== 0) {
+        // Cramer's rule: R* = (b·(−b2) − d·(−b1)) / delta, J* = (c·(−b1) − a·(−b2)) / delta
         const rStar = (b * (-b2) - d * (-b1)) / delta;
         const jStar = (c * (-b1) - a * (-b2)) / delta;
 
         if (rStar > 0 && jStar > 0) {
-            baselineMsg = bases.happy;
+            baselineMsg = bases.happy;      // Both partners' equilibrium sentiment is positive
         } else if (rStar < 0 && jStar < 0) {
-            baselineMsg = bases.unhappy;
+            baselineMsg = bases.unhappy;    // Both end up negative at equilibrium
         } else {
-            baselineMsg = bases.imbalanced;
+            baselineMsg = bases.imbalanced; // Partners settle at opposite emotional poles
         }
     }
 
