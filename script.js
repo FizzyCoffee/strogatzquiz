@@ -229,8 +229,6 @@ function calculateResults() {
     const yourKey = getIndividualArchetype(a, b);
     const partnerKey = getIndividualArchetype(d, c);
 
-    // Get localized individual names/emojis
-    const cleanKey = (key) => key; // Keys are same across langs
     const indArchs = C.individualArchetypes || CONTENT.en.individualArchetypes;
 
     const yourData = indArchs[yourKey] || CONTENT.en.individualArchetypes[yourKey];
@@ -281,9 +279,11 @@ function calculateResults() {
     const bases = C.baselineAnalysis.happy ? C.baselineAnalysis : CONTENT.en.baselineAnalysis;
 
     if (delta !== 0) {
-        // Cramer's rule: R* = (b·(−b2) − d·(−b1)) / delta, J* = (c·(−b1) − a·(−b2)) / delta
-        const rStar = (b * (-b2) - d * (-b1)) / delta;
-        const jStar = (c * (-b1) - a * (-b2)) / delta;
+        // Cramer's rule for A·[R*,J*] = [−b1,−b2]:
+        //   R* = det([[−b1, b],[−b2, d]]) / delta = (−b1·d − b·(−b2)) / delta = (b·b2 − b1·d) / delta
+        //   J* = det([[a,−b1],[c,−b2]])   / delta = (a·(−b2) − (−b1)·c) / delta = (b1·c − a·b2) / delta
+        const rStar = (b * b2 - b1 * d) / delta;
+        const jStar = (b1 * c - a * b2) / delta;
 
         if (rStar > 0 && jStar > 0) {
             baselineMsg = bases.happy;      // Both partners' equilibrium sentiment is positive
