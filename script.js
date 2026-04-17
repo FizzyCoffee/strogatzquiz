@@ -21,6 +21,33 @@ const labelPos = document.querySelector('.label-pos');
 const langEnBtn = document.getElementById('lang-en');
 const langJpBtn = document.getElementById('lang-jp');
 
+// Landing Elements
+const landingTitle = document.querySelector('#landing h1');
+const landingSubtitle = document.querySelector('#landing .subtitle');
+const landingDesc = document.querySelector('#landing .description p');
+
+// Results Elements
+const resultsTitle = document.querySelector('.results-title');
+const mathStatLabels = document.querySelectorAll('.math-stats .stat span');
+const adviceTitle = document.querySelector('.advice-section h3');
+const mathCornerTitle = document.querySelector('#results .result-card:nth-child(2) h3');
+const sliderLabelText = document.getElementById('slider-label-text');
+const descEnergy = document.getElementById('desc-energy');
+const descStrength = document.getElementById('desc-strength');
+const descStyle = document.getElementById('desc-style');
+
+const archetypeEmoji = document.getElementById('archetype-emoji');
+const archetypeName = document.getElementById('archetype-name');
+const archetypeDesc = document.getElementById('archetype-desc');
+const yourArchetypeEmoji = document.getElementById('your-archetype-emoji');
+const yourArchetypeName = document.getElementById('your-archetype-name');
+const partnerArchetypeEmoji = document.getElementById('partner-archetype-emoji');
+const partnerArchetypeName = document.getElementById('partner-archetype-name');
+const statTrace = document.getElementById('stat-trace');
+const statDet = document.getElementById('stat-det');
+const statDisc = document.getElementById('stat-disc');
+const strategicAdvice = document.getElementById('strategic-advice');
+
 // Initialize
 function init() {
     renderText();
@@ -60,9 +87,9 @@ function renderText() {
     const ui = getC().ui;
 
     // Landing
-    document.querySelector('#landing h1').textContent = ui.title;
-    document.querySelector('#landing .subtitle').textContent = ui.subtitle;
-    document.querySelector('#landing .description p').innerHTML = ui.description;
+    landingTitle.textContent = ui.title;
+    landingSubtitle.textContent = ui.subtitle;
+    landingDesc.innerHTML = ui.description;
     startBtn.textContent = ui.startBtn;
 
     // Quiz Buttons
@@ -71,21 +98,20 @@ function renderText() {
     restartBtn.textContent = ui.restartBtn;
 
     // Results Static Text
-    document.querySelector('.results-title').textContent = ui.resultsTitle;
+    resultsTitle.textContent = ui.resultsTitle;
     // Math Corner headers
-    const mathStats = document.querySelectorAll('.math-stats .stat span');
-    if (mathStats.length >= 3) {
-        mathStats[0].textContent = ui.energy;
-        mathStats[1].textContent = ui.strength;
-        mathStats[2].textContent = ui.style;
+    if (mathStatLabels.length >= 3) {
+        mathStatLabels[0].textContent = ui.energy;
+        mathStatLabels[1].textContent = ui.strength;
+        mathStatLabels[2].textContent = ui.style;
     }
-    document.querySelector('.advice-section h3').textContent = ui.adviceTitle;
-    document.querySelector('#results .result-card:nth-child(2) h3').textContent = ui.mathCorner;
-    document.getElementById('slider-label-text').textContent = ui.valueLabel;
+    adviceTitle.textContent = ui.adviceTitle;
+    mathCornerTitle.textContent = ui.mathCorner;
+    sliderLabelText.textContent = ui.valueLabel;
 
-    document.getElementById('desc-energy').textContent = ui.mathExplanations.energy;
-    document.getElementById('desc-strength').textContent = ui.mathExplanations.strength;
-    document.getElementById('desc-style').textContent = ui.mathExplanations.style;
+    descEnergy.textContent = ui.mathExplanations.energy;
+    descStrength.textContent = ui.mathExplanations.strength;
+    descStyle.textContent = ui.mathExplanations.style;
 }
 
 function setupEventListeners() {
@@ -332,20 +358,20 @@ function calculateResults() {
     `;
 
     // Update UI
-    document.getElementById('archetype-name').textContent = matrixDestiny || subName || baseArch.name;
-    document.getElementById('archetype-desc').textContent = baseArch.description;
-    document.getElementById('archetype-emoji').textContent = subEmoji || baseArch.emoji;
+    archetypeName.textContent = matrixDestiny || subName || baseArch.name;
+    archetypeDesc.textContent = baseArch.description;
+    archetypeEmoji.textContent = subEmoji || baseArch.emoji;
 
-    document.getElementById('your-archetype-name').textContent = yourData.name || yourKey;
-    document.getElementById('your-archetype-emoji').textContent = yourData.emoji;
+    yourArchetypeName.textContent = yourData.name || yourKey;
+    yourArchetypeEmoji.textContent = yourData.emoji;
 
-    document.getElementById('partner-archetype-name').textContent = partnerData.name || partnerKey;
-    document.getElementById('partner-archetype-emoji').textContent = partnerData.emoji;
+    partnerArchetypeName.textContent = partnerData.name || partnerKey;
+    partnerArchetypeEmoji.textContent = partnerData.emoji;
 
-    document.getElementById('stat-trace').textContent = tau.toFixed(2);
-    document.getElementById('stat-det').textContent = delta.toFixed(2);
-    document.getElementById('stat-disc').textContent = disc.toFixed(2);
-    document.getElementById('strategic-advice').innerHTML = finalAdvice;
+    statTrace.textContent = tau.toFixed(2);
+    statDet.textContent = delta.toFixed(2);
+    statDisc.textContent = disc.toFixed(2);
+    strategicAdvice.innerHTML = finalAdvice;
 
     quizScreen.style.display = 'none';
     resultsScreen.style.display = 'flex';
